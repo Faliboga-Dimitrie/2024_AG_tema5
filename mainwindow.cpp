@@ -83,11 +83,13 @@ void MainWindow::paintEvent(QPaintEvent *ev)
     painter.setRenderHint(QPainter::Antialiasing);
     std::vector<Edge> edges = m_graf.getEdge();
 
+    QPen penGreen(Qt::green,5);
+    QPen penBlack(Qt::black,1);
+    QBrush brushRed(Qt::red);
+
     for (const auto& edge : edges) {
         auto firstNode = edge.GetFirstNode();
         auto secondNode = edge.GetSecondNode();
-
-        QPen pen;
 
         QPointF p1 = firstNode->GetPos();
         QPointF p2 = secondNode->GetPos();
@@ -100,12 +102,10 @@ void MainWindow::paintEvent(QPaintEvent *ev)
         if(m_graf.getPath().find(firstNode->GetValue())!= m_graf.getPath().end() &&
             m_graf.getPath().find(secondNode->GetValue())!= m_graf.getPath().end())
         {
-            pen.setColor(Qt::green);
-            pen.setWidth(5);
-            painter.setPen(pen);
+            painter.setPen(penGreen);
             painter.drawLine(p1, p2);
         }
-        painter.setPen(QPen(Qt::black,1,Qt::SolidLine));
+        painter.setPen(penBlack);
         painter.drawLine(p1, p2);
     }
 
@@ -116,8 +116,8 @@ void MainWindow::paintEvent(QPaintEvent *ev)
         double scaledFromX = (nodePosFrom.x() - m_graf.m_minLong) * m_graf.m_scaleFactorX;
         double scaledFromY = (nodePosFrom.y() - m_graf.m_minLat) * m_graf.m_scaleFactorY;
 
-        painter.setBrush(QBrush(Qt::red));
-        painter.setPen(QPen(Qt::black));
+        painter.setBrush(brushRed);
+        painter.setPen(penBlack);
 
         painter.drawEllipse(QPointF(scaledFromX, scaledFromY), 5, 5);
     }
@@ -129,8 +129,8 @@ void MainWindow::paintEvent(QPaintEvent *ev)
         double scaledToX = (nodePosTo.x() - m_graf.m_minLong) * m_graf.m_scaleFactorX;
         double scaledToY = (nodePosTo.y() - m_graf.m_minLat) * m_graf.m_scaleFactorY;
 
-        painter.setBrush(QBrush(Qt::red));
-        painter.setPen(QPen(Qt::black));
+        painter.setBrush(brushRed);
+        painter.setPen(penBlack);
 
         painter.drawEllipse(QPointF(scaledToX, scaledToY), 5, 5);
     }
