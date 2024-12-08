@@ -1,0 +1,15 @@
+release/
+
+build/
+
+*.o
+*.obj
+*.so
+*.dll
+*.exe
+*.log
+*.tmp
+*.user
+*.pro.user
+*.qrc
+*.moc
